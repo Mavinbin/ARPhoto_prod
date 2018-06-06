@@ -526,6 +526,21 @@
             type: 'role',
             scaleRate: 0.9,
             y: window.innerHeight * 0.2
+        },
+        7: {
+            type: 'pet',
+            scaleRate: 0.5
+        },
+        8: {
+            type: 'role',
+            scaleRate: 2,
+            y: window.innerHeight * 0.2
+        },
+        9: {
+            type: 'role',
+            scaleRate: 2.5,
+            xRate: 0.55,
+            y: window.innerHeight * 0.2
         }
     }
 
