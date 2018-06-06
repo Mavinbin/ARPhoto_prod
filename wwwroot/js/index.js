@@ -538,9 +538,9 @@
         },
         9: {
             type: 'role',
-            scaleRate: 2.5,
+            scaleRate: 2.2,
             xRate: 0.55,
-            y: window.innerHeight * 0.2
+            y: window.innerHeight * 0.15
         }
     }
 
