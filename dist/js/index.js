@@ -431,11 +431,11 @@
                 touches = e.nativeEvent.touches
 
                 if (!touches[1]) {
-                    x = e.stageX - gapX
-                    y = e.stageY - gapY
                     prevFingerDistance = 0
-
                     if (canMove) {
+                        x = e.stageX - gapX
+                        y = e.stageY - gapY
+
                         el.set({
                             x: x,
                             y: y,
@@ -443,6 +443,7 @@
                             scaleY: scale
                         })
                     }
+                    console.log(touches[0])
                 } else {
                     clearTimeout(timer)
                     canMove = false
@@ -455,8 +456,6 @@
                         scale *= newScale
                     }
 
-                    prevFingerDistance = fingerDistance
-
                     el.set({
                         x: x,
                         y: y,
@@ -464,13 +463,19 @@
                         scaleY: scale
                     })
 
+                    prevFingerDistance = fingerDistance
+
                     timer = setTimeout(function () {
                         canMove = true
-                    }, 500);
+                    }, 100);
                 }
 
 
             })
+        })
+
+        traceStage.addEventListener('stagemouseup', function (e) {
+            prevFingerDistance = 0
         })
     }
 
