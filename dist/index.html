@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+    <head lang="en">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <meta name="author" content="Mavinbin(186905) | 2018-04-03">
+        <title>AR Camera</title>
+        <link href="css/style.css" rel="stylesheet">
+        <script type="text/javascript" charset="utf-8" src="js/flexible.js"></script>
+</head>
+
+    <body>
+        <div class="container">
+            <div id="videoWrap" class="video-wrap">
+                <video id="video" class="video" autoplay playsinline loop></video>
+            </div>
+            <div id="traceWrap" class="trace-wrap">
+                <canvas id="trace" class="trace"></canvas>
+                <div id="traceBtns" class="btns active">
+                    <a id="btnShutter" class="btn btn-shutter iconfont icon-camera" href="javascript:;"></a>
+                </div>
+                <div id="resultBtns" class="btns result-btns">
+                    <a id="btnShareFB" class="btn btn-redo iconfont icon-icon_facebook" href="javascript:;"></a>
+                    <a id="btnRedo" class="btn btn-redo iconfont icon-back" href="javascript:;"></a>
+                </div>
+                <a id="btnBack" class="btn btn-back iconfont icon-back" href="javascript:;"></a>
+            </div>
+        </div>
+        <div class="loading" id="loading">
+            <span>Loading</span>
+        </div>
+        <div class="tips" id="tips">
+            <div class="tips-main">
+                <span class="txt">You can scale or move the image on the screen by followings </span>
+                <div class="finger">
+                    <span class="finger-1"></span>
+                    <span class="finger-2"></span>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" charset="utf-8" src="js/easeljs.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/index.js"></script>
+</body>
+
+</html>

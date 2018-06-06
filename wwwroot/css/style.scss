@@ -1,0 +1,230 @@
+/**
+ * 主体样式
+ * @author: Mavinbin
+ * @version: 0.0.1
+ * @date: 2018-04-03
+ */
+
+@import "variable";
+@import "function";
+@import "mixin";
+@import "animation";
+@import "reset";
+@import "../font/iconfont";
+.container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    canvas {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+    }
+}
+
+.result-wrap,
+.video-wrap,
+.trace-wrap,
+.decorations {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-wrap .video{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scaleX(-1);
+    -webkit-transform: translate(-50%, -50%) scaleX(-1);
+}
+
+.trace-wrap {
+    z-index: 1;
+    .btns {
+        display: none;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 0 0 rem(80);
+        &.active {
+            @include flex;
+            justify-content: space-around;
+        }
+    }
+    .btn {
+        width: rem(200);
+        height: rem(200);
+        line-height: rem(200);
+        border-radius: 50%;
+        text-align: center;
+        color: #fff;
+        font-size: rem(100);
+        background: #2795fc;
+        box-shadow: 0 0 rem(10) rem(10) rgba(0, 0, 0, 0.2);
+        &:active {
+            box-shadow: 0 0 rem(10) rem(10) rgba(0, 0, 0, 0.2), inset 0 0 rem(10) rem(10) #1e7cd4;
+        }
+    }
+
+    .btn-back {
+        position: absolute;
+        right: rem(40);
+        bottom: rem(80);
+    }
+}
+
+.role-select {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 80%;
+    margin: auto;
+    @include flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    li {
+        width: rem(250);
+        height: rem(250);
+        line-height: rem(250);
+        margin: 0 rem(30);
+        border-radius: 50%;
+        background: #2795fc;
+        box-shadow: 0 0 rem(10) rem(10) rgba(0, 0, 0, 0.2);
+
+        &:active {
+            box-shadow: 0 0 rem(10) rem(10) rgba(0, 0, 0, 0.2), inset 0 0 rem(10) rem(10) #1e7cd4;
+        }
+
+        a {
+            display: block;
+            height: 100%;
+            text-align: center;
+            font-size: rem(40);
+            color: #fff;
+        }
+    }
+}
+
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    span {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: rem(30);
+        margin: auto;
+        font-size: rem(50);
+        text-align: center;
+        color: #fff;
+    }
+
+    &.show {
+        z-index: 0;
+        span {
+            @include animation(flash 1.8s infinite);
+        }
+    }
+}
+
+.tips {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    @include flex;
+    align-items: center;
+    opacity: 0;
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    &.show {
+        opacity: 1;
+        // @include animation(fadeOut 2s linear forwards);
+    }
+
+    .tips-main {
+        width: 100%;
+    }
+
+    .txt {
+        position: relative;
+        display: block;
+        width: 100%;
+        margin-bottom: rem(100);
+        padding: 0 rem(20);
+        font-size: rem(60);
+        color: #fff;
+        text-align: center;
+    }
+
+    .finger {
+        position: relative;
+        @include flex;
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+        font-size: rem(60);
+        color: #fff;
+
+        span {
+            width: 50%;
+            &:before {
+                content: "";
+                display: inline-block;
+                width: 100%;
+                height: rem(300);
+            }
+        }
+
+    }
+
+    .finger-1 {
+        &:before {
+            background: url(../img/pinch.png) center center no-repeat;
+            background-size: contain;
+        }
+
+        &:after {
+            content: "pinch";
+        }
+    }
+
+    .finger-2 {
+        &:before {
+            background: url(../img/move.png) center center no-repeat;
+            background-size: contain;
+        }
+
+        &:after {
+            content: "move";
+        }
+    }
+}

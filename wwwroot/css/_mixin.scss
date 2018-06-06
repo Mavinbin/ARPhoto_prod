@@ -1,0 +1,24 @@
+@mixin flex {
+    display: -webkit-flex;
+    display: flex;
+}
+
+@mixin keyframes($name) {
+    @keyframes #{$name} {
+        @content;
+    }
+
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+}
+
+@mixin animation($params) {
+    animation: $params;
+    -webkit-animation: $params;
+}
+
+@mixin animation-delay($delay) {
+    animation: $delay;
+    -webkit-animation: $delay;
+}

@@ -1,0 +1,4 @@
+// px转rem
+@function rem($n) {
+    @return ($n / $w) + rem;
+}
