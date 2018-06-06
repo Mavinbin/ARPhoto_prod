@@ -307,9 +307,10 @@
 
             scale = window.innerWidth / imgBounds.width * scaleRate
 
-            if (imgBounds.height * scale > window.innerHeight) {
-                scale = window.innerHeight / imgBounds.height * scaleRate
-            }
+            // if (imgBounds.height * scale > window.innerHeight) {
+            //     scale = window.innerHeight / imgBounds.height * scaleRate
+            // }
+            // alert(scale)
             realW = imgBounds.width * scale
             realH = imgBounds.height * scale
 
@@ -449,7 +450,7 @@
                     if (prevFingerDistance) {
                         newScale = fingerDistance / prevFingerDistance
                         x = el.x - el.getBounds().width * scale * (newScale - 1) / 2
-                        y = el.y - el.getBounds().width * scale * (newScale - 1) / 2
+                        y = el.y - el.getBounds().height * scale * (newScale - 1) / 2
                         scale *= newScale
                     }
 
@@ -533,7 +534,7 @@
         },
         8: {
             type: 'role',
-            scaleRate: 4,
+            scaleRate: 3.8,
             y: window.innerHeight * 0.5
         },
         9: {
