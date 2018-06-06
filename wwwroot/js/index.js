@@ -433,6 +433,7 @@
                 if (!touches[1]) {
                     x = e.stageX - gapX
                     y = e.stageY - gapY
+                    prevFingerDistance = 0
 
                     if (canMove) {
                         el.set({
