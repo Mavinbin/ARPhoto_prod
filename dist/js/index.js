@@ -173,12 +173,16 @@
         } else {
             if (systemInfo.system === 'iOS') {
                 if (parseInt(systemInfo.systemVersion) < 11) {
-                    alert('Opps! Open camera error! Please update your system to iOS 11 and open this page in Safari.')
+                    alert('Oops, can\'t connect to the camera. Please upgrade your system to iOS 11 then use Safari to try again.')
                 } else if(systemInfo.browser !== 'Safari'){
-                    alert('Opps! Open camera error! Please open this page in Safari.')
+                    alert('Oops, can\'t connect to the camera. Please use Safari to continue.')
                 }
             } else {
-                alert('Opps! Open camera error!')
+                if (systemInfo.browser !== 'Chrome') {
+                    alert('Oops, can\'t connect to the camera. Please use Chrome to continue.')
+                } else {
+                    alert('Oops, can\'t connect to the camera.')
+                }
             }
 
         }
@@ -208,7 +212,7 @@
                 }, 20)
             }).catch(function (err) {
                 if (err.name === 'DevicesNotFoundError') {
-                    alert('no camera！')
+                    alert('Camera not found！')
                 } else {
                     alert(err)
                 }
@@ -216,12 +220,16 @@
         } else {
             if (systemInfo.system === 'iOS') {
                 if (parseInt(systemInfo.systemVersion) < 11) {
-                    alert('Opps! Open camera error! Please update your system to iOS 11 and open this page in Safari.')
+                    alert('Oops, can\'t connect to the camera. Please upgrade your system to iOS 11 then use Safari to try again.')
                 } else if(systemInfo.browser !== 'Safari'){
-                    alert('Opps! Open camera error! Please open this page in Safari.')
+                    alert('Oops, can\'t connect to the camera. Please use Safari to continue.')
                 }
             } else {
-                alert('Opps! Open camera error!')
+                if (systemInfo.browser !== 'Chrome') {
+                    alert('Oops, can\'t connect to the camera. Please use Chrome to continue.')
+                } else {
+                    alert('Oops, can\'t connect to the camera.')
+                }
             }
         }
     }
@@ -307,10 +315,6 @@
 
             scale = window.innerWidth / imgBounds.width * scaleRate
 
-            // if (imgBounds.height * scale > window.innerHeight) {
-            //     scale = window.innerHeight / imgBounds.height * scaleRate
-            // }
-            // alert(scale)
             realW = imgBounds.width * scale
             realH = imgBounds.height * scale
 
@@ -405,7 +409,10 @@
       *
       */
     ARPhoto.finger = function (el) {
-        var x = el.x,
+        var initX = el.x,
+            initY = el.y,
+            initScale = el.scaleX,
+            x = el.x,
             y = el.y,
             scale = el.scaleX,
             newScale = 1,
@@ -443,16 +450,18 @@
                             scaleY: scale
                         })
                     }
-                    console.log(touches[0])
                 } else {
+                    var midX = Math.abs((touches[1].pageX + touches[0].pageX) / 2) - (window.innerWidth - oVideo.width) / 2
+                    var midY = Math.abs((touches[1].pageY + touches[0].pageY) / 2) - (window.innerHeight - oVideo.height) / 2
+
                     clearTimeout(timer)
                     canMove = false
                     fingerDistance = Math.pow(Math.pow(touches[1].pageX - touches[0].pageX, 2) + Math.pow(touches[1].pageY - touches[0].pageY, 2), 0.5)
 
                     if (prevFingerDistance) {
                         newScale = fingerDistance / prevFingerDistance
-                        x = el.x - el.getBounds().width * scale * (newScale - 1) / 2
-                        y = el.y - el.getBounds().height * scale * (newScale - 1) / 2
+                        x = el.x - (midX - el.x) * (newScale - 1)
+                        y = el.y - (midY - el.y) * (newScale - 1)
                         scale *= newScale
                     }
 
@@ -464,18 +473,37 @@
                     })
 
                     prevFingerDistance = fingerDistance
-
-                    timer = setTimeout(function () {
-                        canMove = true
-                    }, 100);
                 }
-
-
             })
         })
 
         traceStage.addEventListener('stagemouseup', function (e) {
+            var touches = e.nativeEvent.touches,
+                limit = 80,
+                minX = el.x - Math.abs((window.innerWidth - oVideo.width) / 2) < - el.getBounds().width * scale + limit,
+                maxX = el.x - Math.min(window.innerWidth, oVideo.width) - Math.abs((window.innerWidth - oVideo.width) / 2) > - limit,
+                minY = el.y - Math.abs((window.innerHeight - oVideo.height) / 2) < - el.getBounds().height * scale + limit,
+                maxY = el.y - Math.min(window.innerHeight, oVideo.height) - Math.abs((window.innerHeight - oVideo.height) / 2) > - limit
+
             prevFingerDistance = 0
+
+            if (touches.length) { // 由双指变为单指时，不让图片移动
+                canMove = false
+            } else {
+                canMove = true
+            }
+
+            if (minX || minY || maxX || maxY) {  // 防止图片溢出边界
+                x = initX
+                y = initY
+                scale = initScale
+                el.set({
+                    x: x,
+                    y: y,
+                    scaleX: scale,
+                    scaleY: scale
+                })
+            }
         })
     }
 
