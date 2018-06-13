@@ -153,8 +153,8 @@
             videoDevices = []
 
         if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
-            alert(navigator.mediaDevices.enumerateDevices().then)
             navigator.mediaDevices.enumerateDevices().then(function (devices) {
+                alert(2222)
                 devices.forEach(function (device) {
                     if (device.kind === 'videoinput') {
                         videoDevices.push(device.deviceId)
