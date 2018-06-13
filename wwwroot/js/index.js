@@ -140,7 +140,7 @@
             result.browserVersion = RegExp.$1
         }
 
-        // alert(u)
+        alert(u)
 
         // alert('system:' + result.system + '\n' + 'systemVersion:' + result.systemVersion + '\n' + 'browser:' + result.browser + '\n' + 'browserVersion:' + result.browserVersion)
 
