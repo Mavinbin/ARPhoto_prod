@@ -1,6 +1,6 @@
 'use strict'
 
-;
+    ;
 (function () {
     var ARPhoto = {},
         oVideo = document.getElementById('video'),
@@ -103,6 +103,7 @@
             isFireFox = u.indexOf('Firefox') > -1 || u.indexOf('FxiOS') > -1,
             isChrome = u.indexOf('Chrome') > -1 || u.indexOf('CriOS') > -1,
             isSafari = u.indexOf('Safari') > -1,
+            isMiuiBrowser = u.indexOf('MiuiBrowser') > -1,
             result = {}
 
         if (isAndroid) {
@@ -133,6 +134,12 @@
             result.browserVersion = RegExp.$2
         }
 
+        if (isMiuiBrowser) {
+            result.browser = 'MiuiBrowser'
+            u.match(/MiuiBrowser\/((\d+.?)+)/i)
+            result.browserVersion = RegExp.$1
+        }
+
         // alert(u)
 
         // alert('system:' + result.system + '\n' + 'systemVersion:' + result.systemVersion + '\n' + 'browser:' + result.browser + '\n' + 'browserVersion:' + result.browserVersion)
@@ -147,14 +154,17 @@
         var _this = this
         var systemInfo = _this.getSystem()
         var constraints = {
-                audio: false,
-                video: {}
-            },
-            videoDevices = []
+            audio: false,
+            video: {}
+        }
+        var videoDevices = []
+        var isStandardBrowser = true
 
-        alert(navigator.mediaDevices && navigator.mediaDevices.enumerateDevices)
+        if (systemInfo.browser === 'MiuiBrowser') {
+            isStandardBrowser = false
+        }
 
-        if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+        if (isStandardBrowser && !!navigator.mediaDevices && !!navigator.mediaDevices.enumerateDevices && !!navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.enumerateDevices().then(function (devices) {
                 devices.forEach(function (device) {
                     if (device.kind === 'videoinput') {
@@ -180,7 +190,7 @@
             if (systemInfo.system === 'iOS') {
                 if (parseInt(systemInfo.systemVersion) < 11) {
                     alert('Oops, can\'t connect to the camera. Please upgrade your system to iOS 11 then use Safari to try again.')
-                } else if(systemInfo.browser !== 'Safari'){
+                } else if (systemInfo.browser !== 'Safari') {
                     alert('Oops, can\'t connect to the camera. Please use Safari to continue.')
                 }
             } else {
@@ -201,44 +211,27 @@
       */
     ARPhoto.getUserMedia = function (constraints) {
         var _this = this
-        alert(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-                oVideo.srcObject = stream
-                document.body.addEventListener('click', function () {
-                    oVideo.play()
-                })
-                var timer = setInterval(function () {
-                    if (oVideo.videoWidth) {
-                        _this.initCanvas(oVideo.videoWidth, oVideo.videoHeight)
-                        _this.initAssets(_this.getUrlParam('id'))
-                        _this.domOperation()
-                        oTips.classList.add('show')
-                        clearInterval(timer)
-                    }
-                }, 20)
-            }).catch(function (err) {
-                if (err.name === 'DevicesNotFoundError') {
-                    alert('Camera not found！')
-                } else {
-                    alert(err)
-                }
+        navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+            oVideo.srcObject = stream
+            document.body.addEventListener('click', function () {
+                oVideo.play()
             })
-        } else {
-            if (systemInfo.system === 'iOS') {
-                if (parseInt(systemInfo.systemVersion) < 11) {
-                    alert('Oops, can\'t connect to the camera. Please upgrade your system to iOS 11 then use Safari to try again.')
-                } else if(systemInfo.browser !== 'Safari'){
-                    alert('Oops, can\'t connect to the camera. Please use Safari to continue.')
+            var timer = setInterval(function () {
+                if (oVideo.videoWidth) {
+                    _this.initCanvas(oVideo.videoWidth, oVideo.videoHeight)
+                    _this.initAssets(_this.getUrlParam('id'))
+                    _this.domOperation()
+                    oTips.classList.add('show')
+                    clearInterval(timer)
                 }
+            }, 20)
+        }).catch(function (err) {
+            if (err.name === 'DevicesNotFoundError') {
+                alert('Camera not found！')
             } else {
-                if (systemInfo.browser !== 'Chrome') {
-                    alert('Oops, can\'t connect to the camera. Please use Chrome to continue.')
-                } else {
-                    alert('Oops, can\'t connect to the camera.')
-                }
+                alert(err)
             }
-        }
+        })
     }
 
     /**
@@ -274,8 +267,8 @@
             }
 
             realW = (window.innerWidth - oBtnShuffer.clientWidth) / 2 - 15,
-            scale = realW / imgBounds.width,
-            realH = imgBounds.height * scale
+                scale = realW / imgBounds.width,
+                realH = imgBounds.height * scale
             asset = img
             traceStage.addChild(img)
             traceStage.addChildAt(img, 2)
