@@ -153,6 +153,7 @@
             videoDevices = []
 
         if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+            alert(navigator.mediaDevices.enumerateDevices().then)
             navigator.mediaDevices.enumerateDevices().then(function (devices) {
                 devices.forEach(function (device) {
                     if (device.kind === 'videoinput') {
@@ -169,8 +170,6 @@
                 } else {
                     constraints.video.deviceId = videoDevices[videoDevices.length - 1]
                 }
-
-                alert(111)
 
                 _this.getUserMedia(constraints)
             }).catch(function (err) {
