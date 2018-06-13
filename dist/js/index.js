@@ -133,9 +133,9 @@
             result.browserVersion = RegExp.$2
         }
 
-        alert(u)
+        // alert(u)
 
-        alert('system:' + result.system + '\n' + 'systemVersion:' + result.systemVersion + '\n' + 'browser:' + result.browser + '\n' + 'browserVersion:' + result.browserVersion)
+        // alert('system:' + result.system + '\n' + 'systemVersion:' + result.systemVersion + '\n' + 'browser:' + result.browser + '\n' + 'browserVersion:' + result.browserVersion)
 
         return result
     }
@@ -151,6 +151,8 @@
                 video: {}
             },
             videoDevices = []
+
+        alert(navigator.mediaDevices && navigator.mediaDevices.enumerateDevices)
 
         if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
             navigator.mediaDevices.enumerateDevices().then(function (devices) {
@@ -199,6 +201,7 @@
       */
     ARPhoto.getUserMedia = function (constraints) {
         var _this = this
+        alert(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
                 oVideo.srcObject = stream
