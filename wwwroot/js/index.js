@@ -42,7 +42,7 @@
     }
 
     /**
-      *  模板渲染组件
+      *  获取URL的参数
       *  @param {String} name [参数名称]
       *
       */
@@ -111,8 +111,8 @@
             result.systemVersion = RegExp.$1
         } else {
             result.system = 'iOS'
-            u.match(/CPU\siPhone\sOS\s((\d+_?)+)/i)
-            result.systemVersion = RegExp.$1
+            u.match(/CPU(\siPhone)?\sOS\s((\d+_?)+)/i)
+            result.systemVersion = RegExp.$2
         }
 
         if (isSafari) {
@@ -132,6 +132,10 @@
             u.match(/(Chrome|CriOS)\/((\d+.?)+)/i)
             result.browserVersion = RegExp.$2
         }
+
+        alert(u)
+
+        alert('system:' + result.system + '\n' + 'systemVersion:' + result.systemVersion + '\n' + 'browser:' + result.browser + '\n' + 'browserVersion:' + result.browserVersion)
 
         return result
     }
@@ -529,9 +533,9 @@
       *  {String} type [素材类型]
       *  {Number} scaleRate [素材缩放率]
       *  {Number} xRate [素材左偏移率]
-      *  {Number} yRate [素材右偏移率]
+      *  {Number} yRate [素材上偏移率]
       *  {Number} x [素材左偏移值]
-      *  {Number} y [素材右偏移值]
+      *  {Number} y [素材上偏移值]
       */
     ARPhoto.assets = {
         1: {
