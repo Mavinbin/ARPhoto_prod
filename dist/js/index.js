@@ -106,6 +106,7 @@
             isMiuiBrowser = u.indexOf('MiuiBrowser') > -1,
             isVivoBrowser = u.indexOf('VivoBrowser') > -1,
             isOppoBrowser = u.indexOf('OppoBrowser') > -1,
+            isMZBrowser = u.indexOf('MZBrowser') > -1,
             result = {}
 
         if (isAndroid) {
@@ -154,7 +155,13 @@
             result.browserVersion = RegExp.$1
         }
 
-        // alert(u)
+        if (isMZBrowser) {
+            result.browser = 'MZBrowser'
+            u.match(/MZBrowser\/((\d+.?)+)/i)
+            result.browserVersion = RegExp.$1
+        }
+
+        alert(u)
 
         // alert('system:' + result.system + '\n' + 'systemVersion:' + result.systemVersion + '\n' + 'browser:' + result.browser + '\n' + 'browserVersion:' + result.browserVersion)
 
@@ -174,7 +181,7 @@
         var videoDevices = []
         var isStandardBrowser = true
 
-        if (systemInfo.browser === 'MiuiBrowser' || systemInfo.browser === 'VivoBrowser' || systemInfo.browser === 'OppoBrowser') {
+        if (systemInfo.browser === 'MiuiBrowser' || systemInfo.browser === 'VivoBrowser' || systemInfo.browser === 'OppoBrowser' || systemInfo.browser === 'MZBrowser') {
             isStandardBrowser = false
         }
 
