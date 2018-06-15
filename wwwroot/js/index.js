@@ -107,6 +107,7 @@
             isVivoBrowser = u.indexOf('VivoBrowser') > -1,
             isOppoBrowser = u.indexOf('OppoBrowser') > -1,
             isMZBrowser = u.indexOf('MZBrowser') > -1,
+            isFBBrowser = u.indexOf('FBAV') > -1,
             result = {}
 
         if (isAndroid) {
@@ -161,7 +162,13 @@
             result.browserVersion = RegExp.$1
         }
 
-        alert(u)
+        if (isFBBrowser) {
+            result.browser = 'FBBrowser'
+            u.match(/FBBrowser\/((\d+.?)+)/i)
+            result.browserVersion = RegExp.$1
+        }
+
+        // alert(u)
 
         // alert('system:' + result.system + '\n' + 'systemVersion:' + result.systemVersion + '\n' + 'browser:' + result.browser + '\n' + 'browserVersion:' + result.browserVersion)
 
@@ -183,6 +190,11 @@
 
         if (systemInfo.browser === 'MiuiBrowser' || systemInfo.browser === 'VivoBrowser' || systemInfo.browser === 'OppoBrowser' || systemInfo.browser === 'MZBrowser') {
             isStandardBrowser = false
+        }
+
+        if (systemInfo.system === 'Android' && isFBBrowser) {
+            alert('Oops, can\'t connect to the camera. Please use Chrome to continue.')
+            return false;
         }
 
         if (isStandardBrowser && !!navigator.mediaDevices && !!navigator.mediaDevices.enumerateDevices && !!navigator.mediaDevices.getUserMedia) {
