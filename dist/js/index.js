@@ -11,9 +11,7 @@
         oBtnShuffer = document.getElementById('btnShutter'),
         oTips = document.getElementById('tips'),
         oLoading = document.getElementById('loading'),
-        asset = null,
-        isPause = false,
-        scaleRate = 1
+        isPause = false
 
     createjs.Touch.enable(traceStage)
 
@@ -168,7 +166,7 @@
             result.browserVersion = RegExp.$1
         }
 
-        alert(u)
+        // alert(u)
 
         // alert('system:' + result.system + '\n' + 'systemVersion:' + result.systemVersion + '\n' + 'browser:' + result.browser + '\n' + 'browserVersion:' + result.browserVersion)
 
@@ -192,8 +190,9 @@
             isStandardBrowser = false
         }
 
+        // 如果是安卓端的facebook内置浏览器打开的话提示使用chrome浏览器打开
         if (systemInfo.system === 'Android' && systemInfo.browser === 'FBBrowser') {
-            alert('Oops, can\'t connect to the camera. Please use Chrome to continue.')
+            this.errorHandler('Oops, can\'t connect to the camera. Please use Chrome to continue.')
             return false;
         }
 
@@ -217,20 +216,20 @@
 
                 _this.getUserMedia(constraints)
             }).catch(function (err) {
-                alert(err)
+                _this.errorHandler(err)
             })
         } else {
             if (systemInfo.system === 'iOS') {
                 if (parseInt(systemInfo.systemVersion) < 11) {
-                    alert('Oops, can\'t connect to the camera. Please upgrade your system to iOS 11 then use Safari to try again.')
+                    _this.errorHandler('Oops, can\'t connect to the camera. Please upgrade your system to iOS 11 then use Safari to try again.')
                 } else if (systemInfo.browser !== 'Safari') {
-                    alert('Oops, can\'t connect to the camera. Please use Safari to continue.')
+                    _this.errorHandler('Oops, can\'t connect to the camera. Please use Safari to continue.')
                 }
             } else {
                 if (systemInfo.browser !== 'Chrome') {
-                    alert('Oops, can\'t connect to the camera. Please use Chrome to continue.')
+                    _this.errorHandler('Oops, can\'t connect to the camera. Please use Chrome to continue.')
                 } else {
-                    alert('Oops, can\'t connect to the camera.')
+                    _this.errorHandler('Oops, can\'t connect to the camera.')
                 }
             }
 
@@ -245,6 +244,8 @@
     ARPhoto.getUserMedia = function (constraints) {
         var _this = this
         navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
+            oVideo.show()
+            oTraceBtns.addClass('active')
             oVideo.srcObject = stream
             document.body.addEventListener('click', function () {
                 oVideo.play()
@@ -260,9 +261,9 @@
             }, 20)
         }).catch(function (err) {
             if (err.name === 'DevicesNotFoundError') {
-                alert('Camera not found！')
+                _this.errorHandler('Camera not found！')
             } else {
-                alert(err)
+                _this.errorHandler(err)
             }
         })
     }
@@ -538,6 +539,18 @@
                 })
             }
         })
+    }
+
+     /**
+      *  错误处理
+      */
+    ARPhoto.errorHandler = function (msg) {
+        var systemInfo = this.getSystem()
+
+        if (systemInfo.browser === 'FBBrowser') {
+            $('#FBGuide').show()
+        }
+        alert(msg)
     }
 
     /**
