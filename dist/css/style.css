@@ -316,7 +316,7 @@ a {
   text-align: center;
   font-size: 0.46296rem; }
   .fb-guide.is-Android {
-    top: 0.27778rem;
+    top: 0;
     padding: 1.85185rem 1.85185rem 0 0.74074rem; }
     .fb-guide.is-Android:before {
       background-image: url(../img/arrow_up.png); }
