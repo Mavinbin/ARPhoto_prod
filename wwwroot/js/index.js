@@ -164,7 +164,7 @@
 
         if (isFBBrowser) {
             result.browser = 'FBBrowser'
-            u.match(/FBBrowser\/((\d+.?)+)/i)
+            u.match(/FBAV\/((\d+.?)+)/i)
             result.browserVersion = RegExp.$1
         }
 
