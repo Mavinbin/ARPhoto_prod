@@ -197,10 +197,10 @@
         }
 
         // 如果是iOS端的facebook内置浏览器打开的话,提示使用Safari浏览器打开
-        if (systemInfo.system === 'iOS' && systemInfo.browser === 'FBBrowser') {
-            this.errorHandler('Please use Safari to open this event page.')
-            return false;
-        }
+        // if (systemInfo.system === 'iOS' && systemInfo.browser === 'FBBrowser') {
+        //     this.errorHandler('Please use Safari to open this event page.')
+        //     return false;
+        // }
 
         if (isStandardBrowser && !!navigator.mediaDevices && !!navigator.mediaDevices.enumerateDevices && !!navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.enumerateDevices().then(function (devices) {
@@ -552,12 +552,12 @@
       */
     ARPhoto.errorHandler = function (msg) {
         var systemInfo = this.getSystem(),
-            oFBGuide = document.getElementById('FBGuide'),
+            oFBGuide = document.getElementById('fbGuide'),
             oText = document.createTextNode(msg)
 
         if (systemInfo.browser === 'FBBrowser') {
-            oFBGuide.style.display = 'block'
             oFBGuide.appendChild(oText)
+            oFBGuide.style.display = 'block'
         } else {
             alert(msg)
         }
