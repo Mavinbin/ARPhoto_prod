@@ -192,7 +192,7 @@
             isStandardBrowser = false
         }
 
-        if (systemInfo.system === 'Android' && isFBBrowser) {
+        if (systemInfo.system === 'Android' && systemInfo.browser === 'FBBrowser') {
             alert('Oops, can\'t connect to the camera. Please use Chrome to continue.')
             return false;
         }
