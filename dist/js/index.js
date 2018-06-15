@@ -244,7 +244,7 @@
     ARPhoto.getUserMedia = function (constraints) {
         var _this = this
         navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-            oVideo.show()
+            oVideo.style.display = 'block'
             oTraceBtns.addClass('active')
             oVideo.srcObject = stream
             document.body.addEventListener('click', function () {
@@ -548,7 +548,7 @@
         var systemInfo = this.getSystem()
 
         if (systemInfo.browser === 'FBBrowser') {
-            $('#FBGuide').show()
+            document.getElementById('FBGuide').style.display = 'block'
         }
         alert(msg)
     }
