@@ -158,7 +158,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    @include flex;
     align-items: center;
     display: none;
 
@@ -173,7 +172,7 @@
     }
 
     &.show {
-        display: block;
+        @include flex;
         // @include animation(fadeOut 2s linear forwards);
     }
 
