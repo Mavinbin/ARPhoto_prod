@@ -84,7 +84,7 @@
 
     .btn-back {
         position: absolute;
-        right: rem(40);
+        left: rem(40);
         bottom: rem(80);
     }
 }
@@ -238,21 +238,37 @@
 .fb-guide {
     display: none;
     position: fixed;
-    top: rem(30);
-    right: rem(30);
     width: 100%;
-    padding: rem(200) rem(200) 0 rem(80);
+    right: rem(30);
     text-align: center;
     font-size: rem(50);
+
+    &.is-Android {
+        top: rem(30);
+        padding: rem(200) rem(200) 0 rem(80);
+
+        &:before {
+            background-image: url(../img/arrow_up.png);
+        }
+    }
+
+    &.is-iOS {
+        bottom: rem(200);
+        padding: 0 rem(200) 0 rem(320);
+
+        &:before {
+            background-image: url(../img/arrow_down.png);
+        }
+    }
 
     &:before {
         content: "";
         position: absolute;
         right: rem(10);
-        top: rem(10);
+        top: rem(60);
         width: rem(192);
         height: rem(258);
-        background: url(../img/arrow.png) center center no-repeat;
+        background-repeat: no-repeat;
         background-size: contain;
     }
 }

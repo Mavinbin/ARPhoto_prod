@@ -175,7 +175,7 @@ a {
       box-shadow: 0 0 0.09259rem 0.09259rem rgba(0, 0, 0, 0.2), inset 0 0 0.09259rem 0.09259rem #1e7cd4; }
   .trace-wrap .btn-back {
     position: absolute;
-    right: 0.37037rem;
+    left: 0.37037rem;
     bottom: 0.74074rem; }
 
 .role-select {
@@ -311,18 +311,26 @@ a {
 .fb-guide {
   display: none;
   position: fixed;
-  top: 0.27778rem;
-  right: 0.27778rem;
   width: 100%;
-  padding: 1.85185rem 1.85185rem 0 0.74074rem;
+  right: 0.27778rem;
   text-align: center;
   font-size: 0.46296rem; }
+  .fb-guide.is-Android {
+    top: 0.27778rem;
+    padding: 1.85185rem 1.85185rem 0 0.74074rem; }
+    .fb-guide.is-Android:before {
+      background-image: url(../img/arrow_up.png); }
+  .fb-guide.is-iOS {
+    bottom: 1.85185rem;
+    padding: 0 1.85185rem 0 2.96296rem; }
+    .fb-guide.is-iOS:before {
+      background-image: url(../img/arrow_down.png); }
   .fb-guide:before {
     content: "";
     position: absolute;
     right: 0.09259rem;
-    top: 0.09259rem;
+    top: 0.55556rem;
     width: 1.77778rem;
     height: 2.38889rem;
-    background: url(../img/arrow.png) center center no-repeat;
+    background-repeat: no-repeat;
     background-size: contain; }
