@@ -190,9 +190,15 @@
             isStandardBrowser = false
         }
 
-        // 如果是安卓端的facebook内置浏览器打开的话提示使用chrome浏览器打开
+        // 如果是安卓端的facebook内置浏览器打开的话,提示使用chrome浏览器打开
         if (systemInfo.system === 'Android' && systemInfo.browser === 'FBBrowser') {
-            this.errorHandler('Oops, can\'t connect to the camera. Please use Chrome to continue.')
+            this.errorHandler('Please use Chrome to open this event page.')
+            return false;
+        }
+
+        // 如果是iOS端的facebook内置浏览器打开的话,提示使用Safari浏览器打开
+        if (systemInfo.system === 'iOS' && systemInfo.browser === 'FBBrowser') {
+            this.errorHandler('Please use Safari to open this event page.')
             return false;
         }
 
