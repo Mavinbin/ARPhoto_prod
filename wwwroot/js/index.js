@@ -245,7 +245,7 @@
         var _this = this
         navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
             oVideo.style.display = 'block'
-            oTraceBtns.addClass('active')
+            oTraceBtns.classList.add('active')
             oVideo.srcObject = stream
             document.body.addEventListener('click', function () {
                 oVideo.play()
