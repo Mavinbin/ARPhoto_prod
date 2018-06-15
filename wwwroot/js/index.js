@@ -545,12 +545,16 @@
       *  错误处理
       */
     ARPhoto.errorHandler = function (msg) {
-        var systemInfo = this.getSystem()
+        var systemInfo = this.getSystem(),
+            oFBGuide = document.getElementById('FBGuide'),
+            oText = document.createTextNode(msg)
 
         if (systemInfo.browser === 'FBBrowser') {
-            document.getElementById('FBGuide').style.display = 'block'
+            oFBGuide.style.display = 'block'
+            oFBGuide.appendChild(oText)
+        } else {
+            alert(msg)
         }
-        alert(msg)
     }
 
     /**

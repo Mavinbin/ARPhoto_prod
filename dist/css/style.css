@@ -307,3 +307,22 @@ a {
     background-size: contain; }
   .tips .finger-2:after {
     content: "move"; }
+
+.fb-guide {
+  display: none;
+  position: fixed;
+  top: 0.27778rem;
+  right: 0.27778rem;
+  width: 100%;
+  padding: 1.85185rem 1.85185rem 0 0.74074rem;
+  text-align: center;
+  font-size: 0.46296rem; }
+  .fb-guide:before {
+    content: "";
+    position: absolute;
+    right: 0.09259rem;
+    top: 0.09259rem;
+    width: 1.77778rem;
+    height: 2.38889rem;
+    background: url(../img/arrow.png) center center no-repeat;
+    background-size: contain; }
